@@ -1,10 +1,1 @@
 
-=== User: mike Date: 01-09-2019 03:09 ===
-Redirect 301 http://php-524.local/ https://packerlandwebsites.com/
-ErrorDocument 500 http://php-524.local/
-Redirect 302 http://php-524.local/ https://packerlandwebsites.com/
-
-=== User: mike Date: 01-09-2019 03:22 ===
-Redirect 301 https://packerlandwebsites.com/ https://packerlandwebsites.com/
-ErrorDocument 500 https://packerlandwebsites.com/
-Redirect 302 https://packerlandwebsites.com/ https://packerlandwebsites.com/
