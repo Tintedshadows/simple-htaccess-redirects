@@ -2,7 +2,7 @@
 /**
 * Plugin Name: Simple Htaccess Redirects
 * Description: Creates 301, 302, 404, 500 redirect rules
-* Version: 1.2
+* Version: 1.4.1
 * Author: PackerlandWebsites
 * Author URI: https://www.packerlandwebsites.com
  *
@@ -59,13 +59,105 @@ class PKRedirect
 		 */
 		public function __construct()
 		{
-			add_action('admin_menu', array( $this, 'my_plugin_menu'));
-			add_action( 'admin_init', array( $this, 'my_plugin_settings' ));
-			add_action( 'wp_head', array( $this, 'headscript' ));
-			add_action( 'wp_ajax_reset', array($this, 'reset'));
-			//add_action( 'register_deactivation_hook', array($this, 'reset'));
+			$plugin = plugin_basename( __FILE__ );
+
+			add_filter( "plugin_action_links_" . $plugin , array( $this,'pk_plugin_add_settings_link') );
+			add_action('admin_menu', array( $this, 'PK_plugin_menu'));
+			add_action( 'admin_init', array( $this, 'PK_plugin_settings' ));
+			add_action( 'wp_head', array( $this, 'PK_headscript' ));
+			add_action( 'wp_ajax_PK_reset', array($this, 'PK_reset'));
+
+			//add_action( 'register_deactivation_hook', array($this, 'PK_reset'));
 			//add_filter('admin_footer_text', array($this,'remove_footer_admin'));
+
+			register_activation_hook( __FILE__, array( $this , 'PK_activate' ) );
+			register_deactivation_hook( __FILE__, array( $this , 'PK_deactivate' ) );
+			add_action( 'admin_footer', array($this,'wpse65611_script') );
 		}
+
+		static function PK_activate(){
+
+
+
+			if(get_option('_PK_created_default') !== 'true' ){
+
+				$accessfileurl = get_home_path(). ".htaccess";
+				$defaultHTfileurl = get_home_path() . 'wp-content/plugins/simple-htaccess-redirects/assets/default.txt';
+
+				$accessfileread = fopen($accessfileurl, 'r') or die('Unable to open the file. Sorry');
+
+				$defaultaccessfilewrite = fopen($defaultHTfileurl, 'w+') or die('Unable to open the file. Sorry');
+
+				$data = fread($accessfileread, filesize($accessfileurl));
+				fwrite($defaultaccessfilewrite, $data);
+
+				fclose($defaultaccessfilewrite);
+				fclose($accessfileread);
+
+				update_option('_PK_created_default', 'true');
+
+			}
+
+		}
+
+		static function wpse65611_script() {
+    wp_enqueue_style( 'wp-pointer' );
+    wp_enqueue_script( 'wp-pointer' );
+    wp_enqueue_script( 'utils' ); // for user settings
+		?>
+		    <script type="text/javascript">
+
+		    jQuery('a[aria-label="Deactivate Simple Htaccess Redirects"]').click(function(){
+
+					if(confirm("Do you want to reset your htaccess file from before you activated this plugin?") == true){
+
+						var data = {
+						'action': 'PK_reset',
+					};
+
+					// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+					jQuery.post(ajaxurl, data, function(response) {
+						alert("Your File Has been reset.");
+						window.location.reload();
+					});
+				}
+
+
+			 });
+
+		    </script>
+		<?php
+		}
+
+
+		static function PK_deactivate(){
+
+
+		 update_option('_PK_400_setting', '');
+
+ 		 update_option('_PK_500_setting', '');
+
+		 update_option('_PK_301_old_setting', '');
+		 update_option('_PK_301_new_setting', '');
+
+		 update_option('_PK_302_old_setting', '');
+		 update_option('_PK_302_new_setting', '');
+
+		 update_option('Write404', '');
+
+
+		}
+
+
+
+
+		function pk_plugin_add_settings_link( $links ) {
+	    $settings_link = '<a href="options-general.php?page=PK-redirect-settings">' . __( 'Settings' ) . '</a>';
+	    array_push( $links, $settings_link );
+	  	return $links;
+		}
+
+
 
 		function remove_footer_admin ()
 		{
@@ -74,7 +166,7 @@ class PKRedirect
 
 
 
-		function reset(){
+		function PK_reset(){
 
 			  $accessfileurl = get_home_path(). ".htaccess";
 			  $defaultHTfileurl = get_home_path() . 'wp-content/plugins/simple-htaccess-redirects/assets/default.txt';
@@ -84,6 +176,9 @@ class PKRedirect
 			  $defaultaccessfileread = fopen($defaultHTfileurl, 'r') or die('Unable to open the file. Sorry');
 
 			  $data = fread($defaultaccessfileread, filesize($defaultHTfileurl));
+
+				$data =  $data . PHP_EOL;
+
 			  fwrite($accessfilewrite, $data);
 
 			  fclose($defaultaccessfileread);
@@ -94,7 +189,7 @@ class PKRedirect
 
 
 
-	 function my_plugin_menu() {
+	 function PK_plugin_menu() {
 		 add_menu_page(
 			 'Redirect Settings',
 			 'Redirect Settings',
@@ -105,7 +200,7 @@ class PKRedirect
 		 );
 		}
 
-		function headscript(){
+		function PK_headscript(){
 			if(is_404() && get_option('_PK_404_setting') && get_option('Write404') == '1'){
 
 				?>
@@ -119,7 +214,7 @@ class PKRedirect
 		}
 
 
-	function debug_to_console( $data ) {
+	function PK_debug_to_console( $data ) {
  	    $output = $data;
  	    if ( is_array( $output ) )
  	        $output = implode( ',', $output);
@@ -127,7 +222,7 @@ class PKRedirect
  	    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
  	}
 
-	public function getStatus($url){
+	public function PK_getStatus($url){
 		$response = wp_remote_get( $url );
 		$http_code = wp_remote_retrieve_response_code( $response );
 		return $http_code;
@@ -153,7 +248,7 @@ class PKRedirect
 </style>
 			<?php date_default_timezone_set('America/Chicago'); ?>
 		<div class="wrap">
-		<h2><?php _e('Redirect Details', 'PK-redirect') //All text should be wrapped in a _e() function for translations options?></h2>
+		<h2><?php esc_html_e('Redirect Details', 'PK-redirect') //All text should be wrapped in a esc_html_e() function for translations options?></h2>
 
 		<form id="redirectForm" method="post" action="options.php">
 				<?php settings_fields( 'PK-redirect-settings-group' ); ?>
@@ -163,71 +258,71 @@ class PKRedirect
 
 					<!-- 301 -->
 					<tr valign="top">
-					<th scope="row"><?php _e('301 Redirect', 'PK-redirect') ?><br>
-						<?php _e('Add this Redirect rule? ', 'PK-redirect') ?> <input name="Write301" type="checkbox" id="myCheck" value="1" <?php checked( '1', get_option( 'Write301' ) ); ?> />
+					<th scope="row"><?php esc_html_e('301 Redirect', 'PK-redirect') ?><br>
+						<?php esc_html_e('Add this Redirect rule? ', 'PK-redirect') ?> <input name="Write301" type="checkbox" id="myCheck" value="1" <?php checked( '1', get_option( 'Write301' ) ); ?> />
 					</th>
-					<td><?php _e('Old url: ', 'PK-redirect') ?><input type="text" name="_PK_301_old_setting" value="<?php echo esc_attr( get_option('_PK_301_old_setting') ); ?>" />
+					<td><?php esc_html_e('Old url: ', 'PK-redirect') ?><input type="text" name="_PK_301_old_setting" value="<?php echo esc_attr( get_option('_PK_301_old_setting') ); ?>" />
 					<?php
 					if(get_option('_PK_301_old_setting')){
 						echo 'HTTP Status: ';
-						echo $this->getStatus(get_option('_PK_301_old_setting'));
+						echo $this->PK_getStatus(get_option('_PK_301_old_setting'));
 					}?><br>
-					<?php _e('New url: ', 'PK-redirect') ?><input type="text" name="_PK_301_new_setting" value="<?php echo esc_attr( get_option('_PK_301_new_setting') ); ?>" />
+					<?php esc_html_e('New url: ', 'PK-redirect') ?><input type="text" name="_PK_301_new_setting" value="<?php echo esc_attr( get_option('_PK_301_new_setting') ); ?>" />
 					<?php
 					if(get_option('_PK_301_new_setting')){
 						echo 'HTTP Status: ';
-						echo $this->getStatus(get_option('_PK_301_new_setting'));
+						echo $this->PK_getStatus(get_option('_PK_301_new_setting'));
 					}?></td>
 					</tr>
 
 					<!-- 302 -->
 					<tr valign="top">
-					<th scope="row"><?php _e('302 Redirect', 'PK-redirect') ?><br>
-						<?php _e('Add this Redirect rule? ', 'PK-redirect') ?> <input name="Write302" type="checkbox" id="myCheck2" value="1" <?php checked( '1', get_option( 'Write302' ) ); ?> />
+					<th scope="row"><?php esc_html_e('302 Redirect', 'PK-redirect') ?><br>
+						<?php esc_html_e('Add this Redirect rule? ', 'PK-redirect') ?> <input name="Write302" type="checkbox" id="myCheck2" value="1" <?php checked( '1', get_option( 'Write302' ) ); ?> />
 					</th>
-					<td><?php _e('Old url: ', 'PK-redirect') ?><input type="text" name="_PK_302_old_setting" value="<?php echo esc_attr( get_option('_PK_302_old_setting') ); ?>" />
+					<td><?php esc_html_e('Old url: ', 'PK-redirect') ?><input type="text" name="_PK_302_old_setting" value="<?php echo esc_attr( get_option('_PK_302_old_setting') ); ?>" />
 					<?php
 					if(get_option('_PK_302_old_setting')){
 						echo 'HTTP Status: ';
-						echo $this->getStatus(get_option('_PK_302_old_setting'));
+						echo $this->PK_getStatus(get_option('_PK_302_old_setting'));
 					}?><br>
-					<?php _e('New url: ', 'PK-redirect') ?><input type="text" name="_PK_302_new_setting" value="<?php echo esc_attr( get_option('_PK_302_new_setting') ); ?>" />
+					<?php esc_html_e('New url: ', 'PK-redirect') ?><input type="text" name="_PK_302_new_setting" value="<?php echo esc_attr( get_option('_PK_302_new_setting') ); ?>" />
 					<?php
 					if(get_option('_PK_302_new_setting')){
 						echo 'HTTP Status: ';
-						echo $this->getStatus(get_option('_PK_302_new_setting'));
+						echo $this->PK_getStatus(get_option('_PK_302_new_setting'));
 					}?></td>
 					</tr>
 
 						<!-- 400 -->
 						<tr valign="top">
-						<th scope="row"><?php _e('404 Redirect', 'PK-redirect') ?><br>
-							<?php _e('Enable 404 Redirect? ', 'PK-redirect') ?><input name="Write404" type="checkbox" id="myCheck4" value="1" <?php checked( '1', get_option( 'Write404' ) ); ?> /></th>
+						<th scope="row"><?php esc_html_e('404 Redirect', 'PK-redirect') ?><br>
+							<?php esc_html_e('Enable 404 Redirect? ', 'PK-redirect') ?><input name="Write404" type="checkbox" id="myCheck4" value="1" <?php checked( '1', get_option( 'Write404' ) ); ?> /></th>
 						<td><input type="text" name="_PK_404_setting" value="<?php echo esc_attr( get_option('_PK_404_setting') ); ?>" />
 						<?php
 						if(get_option('_PK_404_setting')){
 							echo 'HTTP Status: ';
-							echo $this->getStatus(get_option('_PK_404_setting'));
+							echo $this->PK_getStatus(get_option('_PK_404_setting'));
 						}?></td>
 						</tr>
 
 						<!-- 500 -->
 						<tr valign="top">
-						<th scope="row"><?php _e('500 Redirect', 'PK-redirect') ?><br>
-							 <?php _e('Add this Redirect rule? ', 'PK-redirect') ?><input name="Write500" type="checkbox" id="myCheck3" value="1" <?php checked( '1', get_option( 'Write500' ) ); ?> />
+						<th scope="row"><?php esc_html_e('500 Redirect', 'PK-redirect') ?><br>
+							 <?php esc_html_e('Add this Redirect rule? ', 'PK-redirect') ?><input name="Write500" type="checkbox" id="myCheck3" value="1" <?php checked( '1', get_option( 'Write500' ) ); ?> />
 						</th>
-						<td><?php _e('Url: ', 'PK-redirect') ?><input type="text" name="_PK_500_setting" value="<?php echo esc_attr( get_option('_PK_500_setting') ); ?>" />
+						<td><input type="text" name="_PK_500_setting" value="<?php echo esc_attr( get_option('_PK_500_setting') ); ?>" />
 						<?php
 						if(get_option('_PK_500_setting')){
 							echo 'HTTP Status: ';
-							echo $this->getStatus(get_option('_PK_500_setting'));
+							echo $this->PK_getStatus(get_option('_PK_500_setting'));
 						}?><br>
 						</td>
 						</tr>
 
 						<tr>
 
-						<?php _e('Would you like to force https? ', 'PK-redirect') ?><input name="ForceHttps" type="checkbox" id="myCheck5" value="1" <?php checked( '1', get_option( 'ForceHttps' ) ); ?> /></th>
+						<?php esc_html_e('Would you like to force https? ', 'PK-redirect') ?><input name="ForceHttps" type="checkbox" id="myCheck5" value="1" <?php checked( '1', get_option( 'ForceHttps' ) ); ?> /></th>
 						</tr>
 
 
@@ -235,7 +330,9 @@ class PKRedirect
 
 				</table>
 
-				<h3><?php _e('Make sure you know what you are doing before saving changes to the .htaccess file!!', 'PK-redirect') ?></h3>
+				<h3><?php esc_html_e('Make sure you know what you are doing before saving changes to the .htaccess file!!', 'PK-redirect') ?></h3>
+
+				<p><?php esc_html_e('You will need to make sure to check "Add this Redirect rule" before saving changes or the rule will not be added.', 'PK-redirect') ?></p>
 
 				<?php submit_button(); ?>
 
@@ -249,7 +346,7 @@ class PKRedirect
 
 
 
-	 function debug_to_console( $data ) {
+	 function PK_debug_to_console( $data ) {
 			 $output = $data;
 			 if ( is_array( $output ) )
 					 $output = implode( ',', $output);
@@ -259,14 +356,14 @@ class PKRedirect
 
 
 
-	 function addToLog($data){
+	 function PK_addToLog($data){
 		$logfileurl = get_home_path() . 'wp-content/plugins/simple-htaccess-redirects/assets/log.txt';
 		$logfilewrite = fopen($logfileurl, 'a') or die('Unable to open the file. Sorry');
 
 		$currentuser = wp_get_current_user();
 
-		$data = PHP_EOL . "=== User: ". $currentuser->user_login . " Date: " . date("m-d-Y h:i") . " ===" . PHP_EOL . $data;
-		//debug_to_console("Added data to log file");
+		$data = PHP_EOL . "=== User: ". $currentuser->user_login . " Date: " . date_i18n("m-d-Y h:i") . " ===" . PHP_EOL . $data;
+		//PK_debug_to_console("Added data to log file");
 
  	 	fwrite($logfilewrite, $data);
  		fclose($logfilewrite);
@@ -275,7 +372,7 @@ class PKRedirect
 
 	 if(file_exists(get_home_path(). ".htaccess")){
 
-		$content;
+		 $content = "";
 
 
 	 $accessfileurl = get_home_path(). ".htaccess";
@@ -284,7 +381,7 @@ class PKRedirect
 	 if(get_option('Write301') == '1' && get_option('_PK_301_old_setting') != "" && get_option('_PK_301_new_setting') != ""){
 
 		$accessfilewrite = fopen($accessfileurl, 'a') or die('Unable to open the file. Sorry');
-		$content301 = "Redirect 301 ". esc_attr( esc_url_raw(get_option('_PK_301_old_setting'))). " ". esc_attr( esc_url_raw(get_option('_PK_301_new_setting'))) . PHP_EOL;
+		$content301 = PHP_EOL . "Redirect 301 ". esc_attr( esc_url_raw(get_option('_PK_301_old_setting'))). " ". esc_attr( esc_url_raw(get_option('_PK_301_new_setting'))) . PHP_EOL;
 		$content = $content . $content301;
 	 	fwrite($accessfilewrite, $content301);
 		update_option( 'Write301', "0" );
@@ -307,7 +404,7 @@ class PKRedirect
 	if(get_option('ForceHttps') == '1'){
 
 	 $accessfilewrite = fopen($accessfileurl, 'a') or die('Unable to open the file. Sorry');
-	 $contentHttps = "RewriteEngine On". PHP_EOL . "RewriteCond %{HTTPS} !=on" . PHP_EOL . "RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]". PHP_EOL;
+	 $contentHttps = PHP_EOL . "RewriteEngine On". PHP_EOL . "RewriteCond %{HTTPS} !=on" . PHP_EOL . "RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]". PHP_EOL;
 	 $content = $content . $contentHttps;
 	 fwrite($accessfilewrite, $contentHttps);
 	 update_option( 'ForceHttps', "0" );
@@ -324,7 +421,7 @@ class PKRedirect
 	if(get_option('Write500') == '1' && get_option('_PK_500_setting') != ""){
 
 	 $accessfilewrite = fopen($accessfileurl, 'a') or die('Unable to open the file. Sorry');
-	 $content500 = "ErrorDocument 500 ". esc_attr( esc_url_raw(get_option('_PK_500_setting'))) . PHP_EOL;
+	 $content500 = PHP_EOL . "ErrorDocument 500 ". esc_attr( esc_url_raw(get_option('_PK_500_setting'))) . PHP_EOL;
 	 $content = $content . $content500;
 	 fwrite($accessfilewrite, $content500);
 	 update_option( 'Write500', "0" );
@@ -346,7 +443,7 @@ class PKRedirect
 	if(get_option('Write302') == '1' && get_option('_PK_302_old_setting') != "" && get_option('_PK_302_new_setting') != ""){
 
 	 $accessfilewrite = fopen($accessfileurl, 'a') or die('Unable to open the file. Sorry');
-	 $content302 = "Redirect 302 ". esc_attr( esc_url_raw(get_option('_PK_302_old_setting'))). " ". esc_attr( esc_url_raw(get_option('_PK_302_new_setting'))) . PHP_EOL;
+	 $content302 = PHP_EOL . "Redirect 302 ". esc_attr( esc_url_raw(get_option('_PK_302_old_setting'))). " ". esc_attr( esc_url_raw(get_option('_PK_302_new_setting'))) . PHP_EOL;
 	 $content = $content . $content302;
 	 fwrite($accessfilewrite, $content302);
 	 update_option( 'Write302', "0" );
@@ -371,11 +468,11 @@ class PKRedirect
 
 	 ?>
 
-	 <button type="button" id="show" ><?php _e('Show .htaccess file', 'PK-redirect') ?></button>
+	 <button type="button" id="show" ><?php esc_html_e('Show .htaccess file', 'PK-redirect') ?></button>
 
 
-	 <form id="resetForm" action="">
-	    <input type="submit" class="reset" name="insert" value="Reset .htaccess file" />
+	 <form id="PK_resetForm" action="">
+	    <input type="submit" class="PK_reset" name="insert" value="Reset .htaccess file" />
 	</form>
 
 
@@ -391,17 +488,16 @@ class PKRedirect
 	 <script>
 	 jQuery(document).ready(function(){
 
-		 document.getElementById("resetForm").addEventListener("click", function(event){
+		 document.getElementById("PK_resetForm").addEventListener("click", function(event){
 		  event.preventDefault()
 		});
 
-    jQuery('.reset').click(function(){
+    jQuery('.PK_reset').click(function(){
 
-			if(confirm("Are you sure you want to reset your htaccess file? This will set it back to the default that wordpress first set up for you.") == true){
-
+			if(confirm("Are you sure you want to reset your htaccess file? It will be reset to the point before this plugin was activated.") == true){
 
 				var data = {
-				'action': 'reset',
+				'action': 'PK_reset',
 			};
 
 			// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -427,7 +523,7 @@ class PKRedirect
 	 </script>
 
 	 <div id="fileinfo" style="display:none;">
-		 <h2><?php _e('This is just showing you what is inside of .htaccess and can\'t be edited here.', 'PK-redirect') ?></h2>
+		 <h2><?php esc_html_e('This is just showing you what is inside of .htaccess and can\'t be edited here.', 'PK-redirect') ?></h2>
 
 		 <!-- <h3>You can always copy and paste the file contents into <a target="_blank" href="http://www.htaccesscheck.com/">this</a> valudator to make sure you have everything correct.</h3> -->
 
@@ -448,8 +544,8 @@ class PKRedirect
 
 
 	 <?php
-	 if($content != ''){
-	 	addToLog($content);
+	if($content != ''){
+	 	PK_addToLog($content);
 	}else{
 	}
 
@@ -457,7 +553,7 @@ class PKRedirect
 
 	}
 
-	 public function my_plugin_settings() {
+	 public function PK_plugin_settings() {
 
 
 		 register_setting( 'PK-redirect-settings-group', '_PK_404_setting' );
@@ -476,6 +572,8 @@ class PKRedirect
 		 register_setting( 'PK-redirect-settings-group', 'Write302' );
 		 register_setting( 'PK-redirect-settings-group', 'Write404' );
 		 register_setting( 'PK-redirect-settings-group', 'Write500' );
+
+		 register_setting( 'PK-redirect-settings-group', '_PK_created_default' );
 
 	 }
 
