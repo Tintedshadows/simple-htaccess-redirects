@@ -2,9 +2,9 @@
 Contributors: mike314156
 Tags: 302, 301, 404, 500, redirect, htaccess
 Requires at least: 5.0
-Tested up to: 5.0.2
+Tested up to: 5.1.0
 Requires PHP: 5.2.4
-Stable tag: 1.2
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,16 @@ As of version 1.0 you need to use FTP or some similar solution to remove that se
 All the rules you create are also submitted into the log.txt file in the assets folder so you have a back up of the rules of the .htaccess just in case something goes wrong.
 
 == Upgrade Notice ==
+= 1.4.1 =
+* Fixed some spacing bugs
+
+= 1.4 =
+* Content updates
+* Implemented a reset link on deactivation
+
+= 1.3 =
+* Upgraded the reset button
+
 = 1.2 =
 * Implemented a way to force https
 
@@ -70,6 +80,16 @@ All the rules you create are also submitted into the log.txt file in the assets 
 * Initial Release
 
 == Changelog ==
+= 1.4.1 =
+* Fixed some spacing bugs
+
+= 1.4 =
+* Content updates
+* Implemented a reset link on deactivation
+
+= 1.3 =
+* Upgraded the reset button
+
 = 1.2 =
 * Implemented a way to force https
 
