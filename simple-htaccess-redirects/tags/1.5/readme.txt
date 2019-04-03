@@ -1,6 +1,6 @@
 ﻿=== Simple Htaccess Redirects ===
 Contributors: mike314156
-Tags: redirect, htaccess, expired headers
+Tags: 302, 301, 404, 500, redirect, htaccess, expired headers
 Requires at least: 5.0
 Tested up to: 5.1.1
 Requires PHP: 5.2.4
