@@ -134,7 +134,7 @@
           <td><input name="ForceHttps" type="checkbox" id="myCheck5" value="1" <?php checked( '1', get_option( 'ForceHttps' ) ); ?> /></td>
 
         </tr>
-
+		
 
         <?php date_default_timezone_set('America/Chicago'); ?>
 

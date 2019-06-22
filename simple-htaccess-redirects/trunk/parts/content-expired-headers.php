@@ -8,10 +8,10 @@
 
       <thead>
         <tr>
-          <th><?php esc_html_e('Type', 'PK-redirect') ?></th>
-          <th><?php esc_html_e('Value', 'PK-redirect') ?></th>
-          <th><?php esc_html_e('Length', 'PK-redirect') ?></th>
-          <th><?php esc_html_e('Add Rule', 'PK-redirect') ?></th>
+          <th>Type</th>
+          <th>Value</th>
+          <th>Length</th>
+          <th>Update Value</th>
         </tr>
 
       </thead>
@@ -19,7 +19,7 @@
       <tbody>
 
         <tr>
-          <td><?php esc_html_e('css', 'PK-redirect') ?></td>
+          <td>css</td>
 
           <td>
             <input type="number" min="0" name="_PK_css_value" value="<?php echo esc_attr( get_option('_PK_css_value') ); ?>">
@@ -32,11 +32,11 @@
             ?>
 
             <select class="_PK_css_value" name='_PK_css_options[select_field_0]'>
-              <option value="second" <?php selected( $CSS_options['select_field_0'], 'second' ); ?>><?php esc_html_e('Second(s)', 'PK-redirect') ?></option>
-              <option value="hour" <?php selected( $CSS_options['select_field_0'], 'hour' ); ?>><?php esc_html_e('Hour(s)', 'PK-redirect') ?></option>
-              <option value="week" <?php selected( $CSS_options['select_field_0'], 'week' ); ?>><?php esc_html_e('Week(s)', 'PK-redirect') ?></option>
-              <option value="month" <?php selected( $CSS_options['select_field_0'], 'month' ); ?>><?php esc_html_e('Month(s)', 'PK-redirect') ?></option>
-              <option value="year" <?php selected( $CSS_options['select_field_0'], 'year' ); ?>><?php esc_html_e('Year(s)', 'PK-redirect') ?></option>
+              <option value="seconds" <?php selected( $CSS_options['select_field_0'], 'seconds' ); ?>>Seconds</option>
+              <option value="hour" <?php selected( $CSS_options['select_field_0'], 'hours' ); ?>>Hours</option>
+              <option value="week" <?php selected( $CSS_options['select_field_0'], 'weeks' ); ?>>Weeks</option>
+              <option value="month" <?php selected( $CSS_options['select_field_0'], 'months' ); ?>>Months</option>
+              <option value="year" <?php selected( $CSS_options['select_field_0'], 'years' ); ?>>Years</option>
             </select>
           </td>
 
@@ -46,7 +46,7 @@
         </tr>
 
         <tr>
-          <td><?php esc_html_e('javascript', 'PK-redirect') ?></td>
+          <td>JS</td>
 
           <td>
             <input type="number" min="0" name="_PK_js_value" value="<?php echo esc_attr( get_option('_PK_js_value') ); ?>">
@@ -59,11 +59,11 @@
             ?>
 
             <select class="_PK_js_value" name='_PK_js_options[select_field_0]'>
-              <option value="second" <?php selected( $JS_options['select_field_0'], 'second' ); ?>><?php esc_html_e('Second(s)', 'PK-redirect') ?></option>
-              <option value="hour" <?php selected( $JS_options['select_field_0'], 'hour' ); ?>><?php esc_html_e('Hour(s)', 'PK-redirect') ?></option>
-              <option value="week" <?php selected( $JS_options['select_field_0'], 'week' ); ?>><?php esc_html_e('Week(s)', 'PK-redirect') ?></option>
-              <option value="month" <?php selected( $JS_options['select_field_0'], 'month' ); ?>><?php esc_html_e('Month(s)', 'PK-redirect') ?></option>
-              <option value="year" <?php selected( $JS_options['select_field_0'], 'year' ); ?>><?php esc_html_e('Year(s)', 'PK-redirect') ?></option>
+              <option value="seconds" <?php selected( $JS_options['select_field_0'], 'seconds' ); ?>>Seconds</option>
+              <option value="hour" <?php selected( $JS_options['select_field_0'], 'hours' ); ?>>Hours</option>
+              <option value="week" <?php selected( $JS_options['select_field_0'], 'weeks' ); ?>>Weeks</option>
+              <option value="month" <?php selected( $JS_options['select_field_0'], 'months' ); ?>>Months</option>
+              <option value="year" <?php selected( $JS_options['select_field_0'], 'years' ); ?>>Years</option>
             </select>
           </td>
 
@@ -73,7 +73,7 @@
         </tr>
 
         <tr>
-          <td><?php esc_html_e('png', 'PK-redirect') ?></td>
+          <td>png</td>
 
           <td>
             <input type="number" min="0" name="_PK_png_value" value="<?php echo esc_attr( get_option('_PK_png_value') ); ?>">
@@ -86,11 +86,11 @@
             ?>
 
             <select class="_PK_png_value" name='_PK_png_options[select_field_0]'>
-              <option value="second" <?php selected( $PNG_options['select_field_0'], 'second' ); ?>><?php esc_html_e('Second(s)', 'PK-redirect') ?></option>
-              <option value="hour" <?php selected( $PNG_options['select_field_0'], 'hour' ); ?>><?php esc_html_e('Hour(s)', 'PK-redirect') ?></option>
-              <option value="week" <?php selected( $PNG_options['select_field_0'], 'week' ); ?>><?php esc_html_e('Week(s)', 'PK-redirect') ?></option>
-              <option value="month" <?php selected( $PNG_options['select_field_0'], 'month' ); ?>><?php esc_html_e('Month(s)', 'PK-redirect') ?></option>
-              <option value="year" <?php selected( $PNG_options['select_field_0'], 'year' ); ?>><?php esc_html_e('Year(s)', 'PK-redirect') ?></option>
+              <option value="seconds" <?php selected( $PNG_options['select_field_0'], 'seconds' ); ?>>Seconds</option>
+              <option value="hour" <?php selected( $PNG_options['select_field_0'], 'hours' ); ?>>Hours</option>
+              <option value="week" <?php selected( $PNG_options['select_field_0'], 'weeks' ); ?>>Weeks</option>
+              <option value="month" <?php selected( $PNG_options['select_field_0'], 'months' ); ?>>Months</option>
+              <option value="year" <?php selected( $PNG_options['select_field_0'], 'years' ); ?>>Years</option>
             </select>
           </td>
 
@@ -100,7 +100,7 @@
         </tr>
 
         <tr>
-          <td><?php esc_html_e('jpg', 'PK-redirect') ?></td>
+          <td>jpg</td>
 
           <td>
             <input type="number" min="0" name="_PK_jpg_value" value="<?php echo esc_attr( get_option('_PK_jpg_value') ); ?>">
@@ -113,11 +113,11 @@
             ?>
 
             <select class="_PK_jpg_value" name='_PK_jpg_options[select_field_0]'>
-              <option value="second" <?php selected( $JPG_options['select_field_0'], 'second' ); ?>><?php esc_html_e('Second(s)', 'PK-redirect') ?></option>
-              <option value="hour" <?php selected( $JPG_options['select_field_0'], 'hour' ); ?>><?php esc_html_e('Hour(s)', 'PK-redirect') ?></option>
-              <option value="week" <?php selected( $JPG_options['select_field_0'], 'week' ); ?>><?php esc_html_e('Week(s)', 'PK-redirect') ?></option>
-              <option value="month" <?php selected( $JPG_options['select_field_0'], 'month' ); ?>><?php esc_html_e('Month(s)', 'PK-redirect') ?></option>
-              <option value="year" <?php selected( $JPG_options['select_field_0'], 'year' ); ?>><?php esc_html_e('Year(s)', 'PK-redirect') ?></option>
+              <option value="seconds" <?php selected( $JPG_options['select_field_0'], 'seconds' ); ?>>Seconds</option>
+              <option value="hour" <?php selected( $JPG_options['select_field_0'], 'hours' ); ?>>Hours</option>
+              <option value="week" <?php selected( $JPG_options['select_field_0'], 'weeks' ); ?>>Weeks</option>
+              <option value="month" <?php selected( $JPG_options['select_field_0'], 'months' ); ?>>Months</option>
+              <option value="year" <?php selected( $JPG_options['select_field_0'], 'years' ); ?>>Years</option>
             </select>
           </td>
 
@@ -138,6 +138,8 @@
     <input type="hidden" name="_PK_302_new_setting" value="<?php echo esc_attr( get_option('_PK_302_new_setting') ); ?>" />
     <input type="hidden" name="_PK_404_setting" value="<?php echo esc_attr( get_option('_PK_404_setting') ); ?>" />
     <input type="hidden" name="_PK_500_setting" value="<?php echo esc_attr( get_option('_PK_500_setting') ); ?>" />
+    <input type="hidden" name="_PK_500_setting" value="<?php echo esc_attr( get_option('_PK_redirect_old_urls') ); ?>" />
+    <input type="hidden" name="_PK_500_setting" value="<?php echo esc_attr( get_option('_PK_redirect_new_urls') ); ?>" />
 
 
     <?php submit_button( __( 'Save Changes', 'textdomain' ), 'primary', 'expiredForm', false ); ?>
@@ -146,18 +148,6 @@
   </form>
 
  <!-- png -->
-  <?php
-    function checkPlural($arg, $string){
-
-      if($arg > 1){
-        return $string . "s";
-      }else{
-        return $string;
-      }
-
-    }
-   ?>
-
    <?php if(get_option('WritePNG') == '1' && get_option('WriteJPG') == '1' && get_option('WriteCSS') == "1" && get_option('WriteJS') == "1") {  // png, jpg, css, js?>
      <?php
 
@@ -165,11 +155,11 @@
 
 
      $contentPNG = PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on"
-     . PHP_EOL . "ExpiresByType " . "image/png" . ' "access plus ' . get_option('_PK_png_value') ." " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"'
-     . PHP_EOL . "ExpiresByType " . "image/jpg" . ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) . '"'
-     . PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"'
-     . PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"'
-     . PHP_EOL . "ExpiresByType " . "text/css" . ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) . '"'
+     . PHP_EOL . "ExpiresByType " . "image/png" . ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"'
+     . PHP_EOL . "ExpiresByType " . "image/jpg" . ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption . '"'
+     . PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"'
+     . PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"'
+     . PHP_EOL . "ExpiresByType " . "text/css" . ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption . '"'
      . PHP_EOL .  "</IfModule>" . PHP_EOL;
      $content = $content . $contentPNG;
 
@@ -191,7 +181,7 @@
 
     $contentPNG =
     PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on"
-    . PHP_EOL . "ExpiresByType " . "image/png" . ' "access plus ' . get_option('_PK_png_value'). " " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"'
+    . PHP_EOL . "ExpiresByType " . "image/png" . ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"'
     . PHP_EOL .  "</IfModule>" . PHP_EOL;
     $content = $content . $contentPNG;
 
@@ -212,7 +202,7 @@
 
     $contentJPG =
     PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-    PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) .'"' .
+    PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption .'"' .
     PHP_EOL . "</IfModule>" . PHP_EOL;
     $content = $content . $contentJPG;
 
@@ -232,7 +222,7 @@
 
       $contentJPG =
       PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-      PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) .'"' .
+      PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption .'"' .
       PHP_EOL . "</IfModule>" . PHP_EOL;
       $content = $content . $contentJPG;
 
@@ -252,8 +242,8 @@
 
         $contentJPG =
         PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) .'"' .
+        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption .'"' .
         PHP_EOL . "</IfModule>" . PHP_EOL;
         $content = $content . $contentJPG;
 
@@ -274,8 +264,8 @@
 
           $contentJPG =
           PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-          PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"' .
-          PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) .'"' .
+          PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"' .
+          PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption .'"' .
           PHP_EOL . "</IfModule>" . PHP_EOL;
           $content = $content . $contentJPG;
 
@@ -297,8 +287,8 @@
 
             $contentJPG =
             PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-            PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) .'"' .
-            PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"' .
+            PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption .'"' .
+            PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"' .
             PHP_EOL . "</IfModule>" . PHP_EOL;
             $content = $content . $contentJPG;
 
@@ -320,9 +310,9 @@
 
           $contentJPG =
           PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-          PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) .'"' .
-          PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
-          PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
+          PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption .'"' .
+          PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
+          PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
           PHP_EOL . "</IfModule>" . PHP_EOL;
           $content = $content . $contentJPG;
 
@@ -344,8 +334,8 @@
 
         $contentJPG =
         PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
-        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
+        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
+        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
         PHP_EOL . "</IfModule>" . PHP_EOL;
         $content = $content . $contentJPG;
 
@@ -365,9 +355,9 @@
 
         $contentJPG =
         PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-        PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
-        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
+        PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
+        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
         PHP_EOL . "</IfModule>" . PHP_EOL;
         $content = $content . $contentJPG;
 
@@ -389,9 +379,9 @@
 
         $contentJPG =
         PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
-        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
+        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
+        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
         PHP_EOL . "</IfModule>" . PHP_EOL;
         $content = $content . $contentJPG;
 
@@ -413,10 +403,10 @@
 
         $contentJPG =
         PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-        PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
-        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
+        PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
+        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
         PHP_EOL . "</IfModule>" . PHP_EOL;
         $content = $content . $contentJPG;
 
@@ -440,10 +430,10 @@
 
         $contentJPG =
         PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-        PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
-        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
+        PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "text/css" .  ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
+        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
         PHP_EOL . "</IfModule>" . PHP_EOL;
         $content = $content . $contentJPG;
 
@@ -467,10 +457,10 @@
 
         $contentJPG =
         PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on" .
-        PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"' .
-        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
-        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . checkPlural(get_option('_PK_js_value') ,$JS_selectedOption) . '"' .
+        PHP_EOL . "ExpiresByType " . "image/jpg" .  ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "image/png" .  ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"' .
+        PHP_EOL . "ExpiresByType " . "text/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
+        PHP_EOL . "ExpiresByType " . "application/javascript" . ' "access plus ' . get_option('_PK_js_value'). " " . $JS_selectedOption . '"' .
         PHP_EOL . "</IfModule>" . PHP_EOL;
         $content = $content . $contentJPG;
 
@@ -494,9 +484,9 @@
 
 
     $contentPNG = PHP_EOL . "<IfModule mod_expires.c>". PHP_EOL . "ExpiresActive on"
-    . PHP_EOL . "ExpiresByType " . "image/png" . ' "access plus ' . get_option('_PK_png_value'). " " . checkPlural(get_option('_PK_png_value') ,$PNG_selectedOption) .'"'
-    . PHP_EOL . "ExpiresByType " . "image/jpg" . ' "access plus ' . get_option('_PK_jpg_value'). " " . checkPlural(get_option('_PK_jpg_value') ,$JPG_selectedOption) . '"'
-    . PHP_EOL . "ExpiresByType " . "text/css" . ' "access plus ' . get_option('_PK_css_value'). " " . checkPlural(get_option('_PK_css_value') ,$CSS_selectedOption) . '"'
+    . PHP_EOL . "ExpiresByType " . "image/png" . ' "access plus ' . get_option('_PK_png_value'). " " . $PNG_selectedOption .'"'
+    . PHP_EOL . "ExpiresByType " . "image/jpg" . ' "access plus ' . get_option('_PK_jpg_value'). " " . $JPG_selectedOption . '"'
+    . PHP_EOL . "ExpiresByType " . "text/css" . ' "access plus ' . get_option('_PK_css_value'). " " . $CSS_selectedOption . '"'
     . PHP_EOL .  "</IfModule>" . PHP_EOL;
     $content = $content . $contentPNG;
 

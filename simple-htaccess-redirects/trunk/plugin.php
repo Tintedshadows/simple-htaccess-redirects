@@ -2,7 +2,7 @@
 /**
 * Plugin Name: Simple Htaccess Redirects
 * Description: Updates your htaccess file with the correct redirect/header code
-* Version: 1.5
+* Version: 1.5.1
 * Author: PackerlandWebsites
 * Author URI: https://www.packerlandwebsites.com
  *
@@ -73,18 +73,13 @@ class PKRedirect
 			register_activation_hook( __FILE__, array( $this , 'PK_activate' ) );
 			register_deactivation_hook( __FILE__, array( $this , 'PK_deactivate' ) );
 			add_action( 'admin_footer', array($this,'wpse65611_script') );
+
+
 		}
-
-		function DebugLog( $data ) {
-			$output = $data;
-			if ( is_array( $output ) )
-					$output = implode( ',', $output);
-
-			echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
-		}
-
 
 		static function PK_activate(){
+
+
 
 			if(get_option('_PK_created_default') !== 'true' ){
 
@@ -105,12 +100,14 @@ class PKRedirect
 
 			}
 
+
+
 		}
 
 		static function wpse65611_script() {
-    wp_enqueue_style( 'wp-pointer' );
-    wp_enqueue_script( 'wp-pointer' );
-    wp_enqueue_script( 'utils' ); // for user settings
+			wp_enqueue_style( 'wp-pointer' );
+			wp_enqueue_script( 'wp-pointer' );
+			wp_enqueue_script( 'utils' ); // for user settings
 		?>
 		    <script type="text/javascript">
 
@@ -159,9 +156,9 @@ class PKRedirect
 
 
 		function pk_plugin_add_settings_link( $links ) {
-	    $settings_link = '<a href="options-general.php?page=PK-redirect-settings">' . __( 'Settings' ) . '</a>';
-	    array_push( $links, $settings_link );
-	  	return $links;
+	    	$settings_link = '<a href="options-general.php?page=PK-redirect-settings">' . __( 'Settings' ) . '</a>';
+	    	array_push( $links, $settings_link );
+	  		return $links;
 		}
 
 
@@ -184,7 +181,7 @@ class PKRedirect
 
 			  $data = fread($defaultaccessfileread, filesize($defaultHTfileurl));
 
-				$data =  $data . PHP_EOL;
+			  $data =  $data . PHP_EOL;
 
 			  fwrite($accessfilewrite, $data);
 
@@ -192,7 +189,6 @@ class PKRedirect
 			  fclose($accessfilewrite);
 
 		}
-
 
 
 
@@ -214,10 +210,47 @@ class PKRedirect
 		}
 
 		function PK_headscript(){
+
+			$assetsURL = get_home_url(). '/wp-content/plugins/simple-htaccess-redirects/assets/';
+			$newRefileurl = $assetsURL . 'newRedirect.txt?v='. rand(0,9000);
+			$oldRefileurl = $assetsURL . 'oldRedirect.txt?v='. rand(0,9000);
+
+
+			if(true){
+				$oldURlData = file_get_contents($oldRefileurl);
+				$newURlData = file_get_contents($newRefileurl);
+
+				$oldArray = explode(",", $oldURlData);
+				$newArray = explode(",", $newURlData);
+				?>
+					<script>
+					var currentUrl = window.location.href;
+					<?php
+						for ($i = 0; $i < count($oldArray); $i++)
+						{
+
+							for ($v = 0; $v < count($newArray); $v++)
+							{
+								if($oldArray[$i] != '' and $newArray[$v] !== ''){
+
+					?>if( currentUrl == '<?php echo $oldArray[$i]; ?>')
+					 {
+						 window.location.href = '<?php echo $newArray[$v]; ?>';
+					 }<?php
+								}
+							}
+						}
+						?>
+
+					</script>
+				<?php
+			}
+
 			if(is_404() && get_option('_PK_404_setting') && get_option('Write404') == '1'){
 
 				?>
 					<script>
+
 					window.location.href = "<?php if(get_option('_PK_404_setting')){	echo esc_attr( get_option('_PK_404_setting') ); }?>";
 					</script>
 				<?php
@@ -227,7 +260,13 @@ class PKRedirect
 		}
 
 
+	function PK_debug_to_console( $data ) {
+ 	    $output = $data;
+ 	    if ( is_array( $output ) )
+ 	        $output = implode( ',', $output);
 
+ 	    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+ 	}
 
 	public function PK_getStatus($url){
 		$response = wp_remote_get( $url );
@@ -248,6 +287,7 @@ class PKRedirect
 	 fwrite($logfilewrite, $data);
 	 fclose($logfilewrite);
 	}
+
 
 	function PK_redirect_settings_page() {
 
@@ -278,6 +318,7 @@ class PKRedirect
 
 		<?php date_default_timezone_set('America/Chicago'); ?>
 
+
 		<ul class="nav nav-tabs">
 			 <li class="active">
 				 <a class="tab" data-toggle="tab" href="#redirectTab">Redirects</a>
@@ -288,6 +329,7 @@ class PKRedirect
 			 </li>
 
 		 </ul>
+
 
 
 		 <div class="tab-content">
@@ -311,9 +353,24 @@ class PKRedirect
 			 $content301 = PHP_EOL . "Redirect 301 ". esc_attr( esc_url_raw(get_option('_PK_301_old_setting'))). " ". esc_attr( esc_url_raw(get_option('_PK_301_new_setting'))) . PHP_EOL;
 			 $content = $content . $content301;
 			 fwrite($accessfilewrite, $content301);
-			 update_option( 'Write301', "0" );
+
+
 			 fclose($accessfilewrite);
 
+			 update_option( 'Write301', "0" );
+
+			 $logfileurl = get_home_path() . 'wp-content/plugins/simple-htaccess-redirects/assets/oldRedirect.txt';
+			 $logfilewrite = fopen($logfileurl, 'a') or die('Unable to open the file. Sorry');
+
+			 fwrite($logfilewrite,trim("," . get_option('_PK_301_old_setting')));
+			 fclose($logfilewrite);
+
+
+			 $logfileurl = get_home_path() . 'wp-content/plugins/simple-htaccess-redirects/assets/newRedirect.txt';
+			 $logfilewrite = fopen($logfileurl, 'a') or die('Unable to open the file. Sorry');
+
+			 fwrite($logfilewrite,trim("," .  get_option('_PK_301_new_setting')));
+			 fclose($logfilewrite);
 
 			 ?>
 			 <script type="text/javascript">
@@ -375,6 +432,19 @@ class PKRedirect
 			fwrite($accessfilewrite, $content302);
 			update_option( 'Write302', "0" );
 			fclose($accessfilewrite);
+
+			 $logfileurl = get_home_path() . 'wp-content/plugins/simple-htaccess-redirects/assets/oldRedirect.txt';
+			 $logfilewrite = fopen($logfileurl, 'a') or die('Unable to open the file. Sorry');
+
+			 fwrite($logfilewrite, trim("," . get_option('_PK_302_old_setting')));
+			 fclose($logfilewrite);
+
+
+			 $logfileurl = get_home_path() . 'wp-content/plugins/simple-htaccess-redirects/assets/newRedirect.txt';
+			 $logfilewrite = fopen($logfileurl, 'a') or die('Unable to open the file. Sorry');
+
+			 fwrite($logfilewrite, trim("," . get_option('_PK_302_new_setting')));
+			 fclose($logfilewrite);
 
 
 			?>
@@ -494,6 +564,9 @@ class PKRedirect
 	 public function PK_plugin_settings() {
 
 		 // redirect settings
+		 register_setting( 'PK-redirect-settings-group', '_PK_redirect_old_urls' );
+		 register_setting( 'PK-redirect-settings-group', '_PK_redirect_new_urls' );
+
 		 register_setting( 'PK-redirect-settings-group', '_PK_404_setting' );
 		 register_setting( 'PK-redirect-settings-group', '_PK_500_setting' );
 
