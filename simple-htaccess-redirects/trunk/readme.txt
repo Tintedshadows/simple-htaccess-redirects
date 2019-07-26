@@ -2,9 +2,9 @@
 Contributors: mike314156
 Tags: 302, 301, 404, 500, redirect, htaccess, expired headers
 Requires at least: 5.0
-Tested up to: 5.2.0
+Tested up to: 5.2.2
 Requires PHP: 5.2.4
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,9 @@ As of version 1.0 you need to use FTP or some similar solution to remove that se
 All the rules you create are also submitted into the log.txt file in the assets folder so you have a back up of the rules of the .htaccess just in case something goes wrong.
 
 == Upgrade Notice ==
+= 1.5.2 =
+* Reordered settings link in plugin list
+
 = 1.5.1 =
 * Fixed redirection issues
 
@@ -86,7 +89,6 @@ All the rules you create are also submitted into the log.txt file in the assets 
 == Changelog ==
 = 1.5.1 =
 * Fixed redirection issues
-
 = 1.5 =
 * Implemented Expired Headers Support
 * Updated UI
