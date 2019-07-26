@@ -2,7 +2,7 @@
 /**
 * Plugin Name: Simple Htaccess Redirects
 * Description: Updates your htaccess file with the correct redirect/header code
-* Version: 1.5.1
+* Version: 1.5.2
 * Author: PackerlandWebsites
 * Author URI: https://www.packerlandwebsites.com
  *
@@ -155,12 +155,14 @@ class PKRedirect
 
 
 
-		function pk_plugin_add_settings_link( $links ) {
-	    	$settings_link = '<a href="options-general.php?page=PK-redirect-settings">' . __( 'Settings' ) . '</a>';
-	    	array_push( $links, $settings_link );
-	  		return $links;
-		}
+		function pk_plugin_add_settings_link( $links ) { 	
 
+			$settings_link = '<a href="' . esc_url( get_admin_url( null, 'admin.php?page=PK-redirect-settings' ) ) . '">' . __( "Settings", 'textdomain' ) . '</a>';
+			array_unshift( $links, $settings_link );
+			return $links;
+			
+		}
+	
 
 
 		function remove_footer_admin ()
